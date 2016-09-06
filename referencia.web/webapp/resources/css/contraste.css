@@ -1,0 +1,52 @@
+/*********************************************
+Sistema: Secretaria da Justiça e da Defesa da Cidadania
+Autor: Prodesp
+Versão: 01/2013
+
+ESTILO PARA O MODO CONTRASTE
+*********************************************/
+
+/* IMPORTA ESTILO DO ARQUIVO estilo.css */
+@import url(estilo.css);
+
+body{background-color: #000;}
+
+#global {background-color:#000; color: #FFF;}
+
+/* Fundo Branco */
+.paginacao ul.nav li.active,table.tabela th
+{background-color: #FFF !important;}
+
+/* Fundo Preto */
+#nav_main, #nav_main_home, ul#nav_main li a:hover, ul#nav_main_home li a:hover, .sub, #wrapper, #lista_agenda, #galeria, .jcarousel-skin-tango .jcarousel-container, .jcarousel-skin-tango .jcarousel-item, #menu h1, table.tabela,#footer .copane, #footer .comunidadenegra, #footer .povosindigenas, #footer .condicaofeminina, #footer .pessoahumana, #footer .condeca, #footer .lgbt, #footer .coned, #agenda_sidebar
+{background-color: #000 !important;}
+
+/* Fonte Branca */
+p, a, h1, h2, h3, h4, h5, #nav_main, #nav_main_home, ul#nav_main li a:hover, #lista_agenda dl dt a span.lista_agenda_data,table.tabela caption, table.tabela td, table.tabela td a, h1.fundcasa, h1.imesc, h1.ipem, h1.itesp, h1.procon, h1.ppcaam, h1.provita, h1.adc, h1.cic, h1.cravi, h1.netp, h1.cpds, h1.coed, h1.fid, h1.ce, h1.mulher, h1.cppni, #menu ul li a:hover
+{color:#FFF !important;}
+
+/* Fonte Preta */
+#footer p, .paginacao ul.nav li.active, ul.navigation a, .tabela a, .bg_toolbox ul li span, p.sidefiltro,table.tabela th
+{color: #000 !important;}
+
+/* Borda Branca */
+
+/* Borda Preta */
+
+/* Troca de imagens */
+#header {background:url(#{resource['images:bg_headerInvertido.jpg']}) no-repeat;}
+#logo a {background: url(#{resource['images:logoInvertido.png']}) no-repeat left top;}
+#box_videos h1 a {background: url(#{resource['images:tit_videoInvertido.gif']}) no-repeat left top;}
+#box_midia h1 a {background: url(#{resource['images:tit_midiaInvertido.gif']}) no-repeat left top;}
+#box_agenda h1 a {background: url(#{resource['images:tit_agendaInvertido.gif']}) no-repeat left top;}
+#box_midia ul li{background: url(#{resource['images:bullet-list_branco.gif']}) no-repeat 0 5px;}
+#box_cidadania h1 a {background: url(#{resource['images:tit_espacoInvertido.gif']}) no-repeat left top;}
+ul.lista_noticias li a {background: url(#{resource['images:bullet-list_branco.gif']}) no-repeat 0 12px;}
+
+#nav_main, #nav_main_home, ul#nav_main li a:hover, #menu h1,#wrapper
+{background-image: none !important;}
+
+/* Outros */
+table.tabela tr.odd {background:#333;}
+#menu ul li a:hover {text-decoration: underline;}
+

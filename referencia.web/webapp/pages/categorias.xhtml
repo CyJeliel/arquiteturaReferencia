@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<title>GPQ - Gerência de Metodologia, Processos e Qualidade</title>
+
+</h:head>
+<h:body>
+
+	<ui:composition template="/public/template.xhtml">
+
+		<ui:define name="content">
+
+
+			<div class="content">
+				<h:form id="categorias" onkeydown="if(event.keyCode == 13){return false;}">
+
+					<h:outputText value="Categoria:  " />
+
+					<p:autoComplete id="autoCompleteCategorias"
+						value="#{categoriaMBean.nomeCategoriaSelecionada}"
+						completeMethod="#{categoriaMBean.autoCompleteCategorias}"
+						var="categoria" itemLabel="#{categoria}" itemValue="#{categoria}"
+						forceSelection="true" styleClass="autoComplete"
+						placeholder="Digite o nome da categoria" dropdown="true">
+						<p:column>
+							<h:outputText value="#{categoria}" />
+						</p:column>
+						<p:ajax event="itemSelect"
+							listener="#{categoriaMBean.onSelecionaCategoria}"
+							update=":categorias:detalhes, autoCompleteCategorias, lista" />
+
+					</p:autoComplete>
+
+					<p:commandButton value="Nova Categoria" id="novaCategoria"
+						actionListener="#{categoriaMBean.formNovaCategoria}"
+						update=":categorias:detalhes, lista"
+						styleClass="botaoNovoItem buttonplus white" />
+
+					<br />
+					<br />
+					<br />
+					<br />
+
+					<p:dataTable styleClass="table table-striped" sortMode="multiple"
+						value="#{categoriaMBean.categorias}" selectionMode="single"
+						var="categoria" rowKey="#{categoria.id}" selection="#{categoriaMBean.categoriaSelecionada}"
+						emptyMessage="Não há categorias cadastradas." cellspacing="0"
+						cellpadding="0" id="lista">
+						<p:ajax event="rowSelect" listener="#{categoriaMBean.onRowSelect}"
+							update=":categorias:detalhes" />
+						<p:column headerText="Categoria" sortBy="#{categoria.descricao}">
+							<h:outputText class="linkTabela" value="#{categoria.descricao}" />
+						</p:column>
+						<p:column headerText="">
+							<p:commandLink value="Excluir"
+								actionListener="#{categoriaMBean.excluir(categoria)}"
+								update=":categorias:feedback, :categorias:detalhes, :categorias:lista">
+								<p:confirm header="Confirmação"
+									message="Tem certeza de que deseja excluir essa categoria?"
+									icon="ui-icon-alert" />
+							</p:commandLink>
+						</p:column>
+					</p:dataTable>
+
+					<h:panelGroup id="detalhes"
+						style="display:#{categoriaMBean.exibeDetalhes}?'none':'block'}; float: left; margin-top: 10px;">
+
+						<h:outputText value="#{categoriaMBean.feedback}"
+							styleClass="#{categoriaMBean.tipoFeedback}" id="feedback" />
+
+						<h:outputText value="#{categoriaMBean.titulo}"
+							rendered="#{categoriaMBean.exibeDetalhes}" class="titulo_projeto" />
+
+						<h:outputText value="Campos Obrigatórios (*)"
+							rendered="#{clienteMBean.exibeDetalhes}" />
+
+						<h:panelGrid id="detalhesDaCategoria" columns="2" style="margin-top: 10px;">
+
+							<h:outputText value="* Descrição:"
+								rendered="#{categoriaMBean.exibeDetalhes}" />
+							<p:inputText counter="display" maxlength="100"
+								counterTemplate="{0} caracteres restantes"
+								styleClass="formCategoria"
+								value="#{categoriaMBean.categoriaSelecionada.descricao}"
+								rendered="#{categoriaMBean.exibeDetalhes}"
+								onkeydown="if(event.keyCode===13){return false;}">
+							</p:inputText>
+							<br />
+							<h:outputText id="display" />
+							
+	  						<p:focus context="detalhesDaCategoria" />
+						</h:panelGrid>
+
+						<br />
+						<br />
+
+						<p:commandButton value="Salvar" id="salvar"
+							actionListener="#{categoriaMBean.salvar}"
+							rendered="#{categoriaMBean.exibeDetalhes}"
+							update=":categorias:feedback, :categorias:detalhes, :categorias:lista"
+							styleClass="buttonplus white" />
+
+						<p:commandButton value="Cancelar" id="reset"
+							actionListener="#{categoriaMBean.reset}"
+							rendered="#{categoriaMBean.exibeDetalhes}"
+							update=":categorias:feedback, :categorias:detalhes" styleClass="buttonplus white" />
+
+						<p:commandButton value="Excluir" id="excluir"
+							actionListener="#{categoriaMBean.excluir}"
+							rendered="#{categoriaMBean.exibeBotaoExcluir}"
+							update=":categorias:feedback, :categorias:detalhes, :categorias:lista"
+							styleClass="buttonplus white">
+
+							<p:confirm header="Confirmação"
+								message="Tem certeza de que deseja excluir essa categoria?"
+								icon="ui-icon-alert" />
+
+						</p:commandButton>
+
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+							<p:commandButton value="Sim" type="button"
+								styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+							<p:commandButton value="Não" type="button"
+								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</p:confirmDialog>
+					</h:panelGroup>
+				</h:form>
+			</div>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
+

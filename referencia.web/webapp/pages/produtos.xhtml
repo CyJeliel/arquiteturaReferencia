@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<title>GPQ - Gerência de Metodologia, Processos e Qualidade</title>
+
+</h:head>
+<h:body>
+
+	<ui:composition template="/public/template.xhtml">
+
+		<ui:define name="content">
+			<div class="content">
+
+				<h:form id="produtos"
+					onkeydown="if(event.keyCode == 13){event.preventDefault();return false;}">
+					<h:outputText value="Produto:  " />
+
+					<p:autoComplete id="autoCompleteProdutos"
+						value="#{produtoMBean.nomeProdutoSelecionado}"
+						completeMethod="#{produtoMBean.autoCompleteProdutos}"
+						var="produto" itemLabel="#{produto}" itemValue="#{produto}"
+						forceSelection="true" styleClass="autoComplete"
+						placeholder="Digite o nome do produto" dropdown="true">
+						<p:column>
+							<h:outputText value="#{produto}" />
+						</p:column>
+						<p:ajax event="itemSelect"
+							listener="#{produtoMBean.onSelecionaProduto}"
+							update=":produtos:detalhes, autoCompleteProdutos, lista" />
+
+					</p:autoComplete>
+
+					<p:commandButton value="Novo Produto" id="novoProduto"
+						actionListener="#{produtoMBean.formNovoProduto}"
+						update=":produtos:detalhes, autoCompleteProdutos, lista"
+						styleClass="botaoNovoItem buttonplus white" />
+
+					<br />
+					<br />
+					<br />
+					<br />
+
+					<p:dataTable styleClass="table table-striped" sortMode="multiple"
+						value="#{produtoMBean.produtos}" selectionMode="single"
+						var="produto" rowKey="#{produto.descricao}" selection="#{produtoMBean.produtoSelecionado}"
+						emptyMessage="Não há produtos cadastrados." cellspacing="0"
+						cellpadding="0" id="lista" paginator="true" rows="5"
+						rowsPerPageTemplate="5,10,15"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						currentPageReportTemplate="Resultados: {startRecord} a {endRecord} de {totalRecords}">
+						<p:ajax event="rowSelect" listener="#{produtoMBean.onRowSelect}"
+							update=":produtos:detalhes, :produtos:autoCompleteProdutos" />
+						<p:column class="linkTabela" headerText="Produto" sortBy="#{produto.descricao}">
+							<h:outputText value="#{produto.descricao}" />
+						</p:column>
+						<p:column class="linkTabela" headerText="Categoria" sortBy="#{produto.categoria.descricao}">
+							<h:outputText value="#{produto.categoria.descricao}" />
+						</p:column>
+						<p:column class="linkTabela" headerText="Preço" sortBy="#{produto.preco}">
+							<h:outputText value="#{produto.preco}">
+								<f:convertNumber pattern="R$#0.00" />
+							</h:outputText>
+						</p:column>
+						<p:column class="linkTabela" headerText="Estoque" sortBy="#{produto.estoque}">
+							<h:outputText value="#{produto.estoque}" />
+						</p:column>
+						<p:column headerText="">
+							<p:commandLink value="Excluir"
+								actionListener="#{produtoMBean.excluir(produto)}"
+								update=":produtos:feedback, :produtos:detalhes, :produtos:lista">
+								<p:confirm header="Confirmação"
+									message="Tem certeza de que deseja excluir esse produto?"
+									icon="ui-icon-alert" />
+							</p:commandLink>
+						</p:column>
+					</p:dataTable>
+
+     				<h:commandLink action="#{referenciaMBean.callPagCategorias}">Visualizar categorias</h:commandLink>
+
+					<h:panelGroup id="detalhes"
+						style="display:#{apontamentoFaturavelMBean.exibeDetalhes}?'none':'block'}; float: left; margin-top: 10px;">
+
+						<h:outputText value="#{produtoMBean.feedback}"
+							styleClass="#{produtoMBean.tipoFeedback}" id="feedback" />
+
+						<h:outputText value="#{produtoMBean.titulo}"
+							rendered="#{produtoMBean.exibeDetalhes}" class="titulo_projeto" />
+
+						<h:outputText value="Campos Obrigatórios (*)"
+							rendered="#{clienteMBean.exibeDetalhes}"/>
+
+						<h:panelGrid id="detalhesDoProduto" columns="2" style="margin-top: 10px;">
+
+							<h:outputLabel value="* Categoria:"
+										rendered="#{produtoMBean.exibeDetalhes}" />
+							<p:autoComplete id="autoCompleteCategorias"
+										value="#{categoriaMBean.nomeCategoriaSelecionada}"
+										completeMethod="#{categoriaMBean.autoCompleteCategorias}"
+										var="projeto" itemLabel="#{projeto}" itemValue="#{projeto}"
+										forceSelection="true" styleClass="autoComplete"
+										rendered="#{produtoMBean.exibeDetalhes}"
+										placeholder="Digite o nome da categoria" dropdown="true">
+										<p:column>
+											<h:outputText value="#{projeto}" />
+										</p:column>
+										<p:ajax event="itemSelect"
+											listener="#{categoriaMBean.onSelecionaCategoria}" />
+							</p:autoComplete>
+							<h:outputLabel value="* Descrição:"
+										rendered="#{produtoMBean.exibeDetalhes}" />
+							<p:inputText counter="display" maxlength="100"
+										counterTemplate="{0} caracteres restantes"
+										styleClass="formProduto"
+										value="#{produtoMBean.produtoSelecionado.descricao}"
+										rendered="#{produtoMBean.exibeDetalhes}"/> <br /> <h:outputText
+										id="display" />
+							<h:outputLabel value="* Preço:"
+										rendered="#{produtoMBean.exibeDetalhes}" />
+									<pe:inputNumber value="#{produtoMBean.produtoSelecionado.preco}" rendered="#{produtoMBean.exibeDetalhes}" styleClass="formProduto" symbol="R$" decimalSeparator=","/>
+						    <h:outputLabel value="* Estoque:"
+										rendered="#{produtoMBean.exibeDetalhes}" />
+									<pe:inputNumber value="#{produtoMBean.produtoSelecionado.estoque}" rendered="#{produtoMBean.exibeDetalhes}" styleClass="formProduto" decimalPlaces="0" onkeydown="if(event.keyCode===13){return false;}"/>
+							
+	  						<p:focus context="detalhesDoProduto" />
+						</h:panelGrid>
+
+						<br />
+						<br />
+
+						<p:commandButton value="Salvar" id="salvar"
+							actionListener="#{produtoMBean.salvar}"
+							rendered="#{produtoMBean.exibeDetalhes}"
+							update=":produtos:feedback, :produtos:detalhes, :produtos:lista, :produtos:autoCompleteProdutos"
+							styleClass="buttonplus white" />
+
+						<p:commandButton value="Cancelar" id="reset"
+							actionListener="#{produtoMBean.reset}"
+							rendered="#{produtoMBean.exibeDetalhes}"
+							update=":produtos:feedback, :produtos:detalhes, :produtos:autoCompleteProdutos" styleClass="buttonplus white" />
+
+						<p:commandButton value="Excluir" id="excluir"
+							actionListener="#{produtoMBean.excluir}"
+							rendered="#{produtoMBean.exibeBotaoExcluir}"
+							update=":produtos:feedback, :produtos:detalhes, :produtos:lista, :produtos:autoCompleteProdutos"
+							styleClass="buttonplus white">
+
+							<p:confirm header="Confirmação"
+								message="Tem certeza de que deseja excluir esse produto?"
+								icon="ui-icon-alert" />
+
+						</p:commandButton>
+					</h:panelGroup>
+
+
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="Sim" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						<p:commandButton value="Não" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</p:confirmDialog>
+				</h:form>
+			</div>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
+

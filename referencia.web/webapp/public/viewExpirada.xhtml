@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="classification" content="Governo" />
+	<meta name="author" content="Prodesp" />
+	<meta name="description" content="Infosys" />
+
+	<title>Sessão Expirada - Aplicação de Referência - GPQ</title>
+
+</h:head>
+<h:body styleClass="login">
+
+	<ui:composition template="/public/template.xhtml">
+
+		<ui:define name="menu" />
+
+		<ui:define name="content">
+
+			<div class="box_login">
+
+				<h:form>
+
+					<h:commandLink
+						value="Sua sessão expirou. Clique aqui para fazer login novamente."
+						action="#{referenciaMBean.callPagLogin}" />
+				</h:form>
+			</div>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
+

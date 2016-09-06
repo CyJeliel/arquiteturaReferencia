@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="classification" content="Governo" />
+	<meta name="author" content="Prodesp" />
+	<meta name="description" content="Infosys" />
+
+	<title>Login - Aplicação de Referência - GPQ</title>
+
+</h:head>
+<h:body>
+
+	<ui:composition template="/public/template.xhtml">
+		<ui:define name="menu"/>
+
+		<ui:define name="content">
+
+			<div class="content">
+				<div class="erro">
+
+					<h:outputText value="#{registroMBean.feedback}"
+						styleClass="#{registroMBean.tipoFeedback}" id="feedback" />
+				</div>
+
+				<h:form>
+
+					<strong><h:outputLabel for="nome"
+							value="Nome:" /></strong>
+
+					<br />
+					<br />
+
+					<h:inputText id="nome" value="#{registroMBean.nome}"
+						class="campos_login" size="40" />
+					<br />
+					<br />
+
+					<strong><h:outputLabel for="login"
+							value="Usuário ( matrícula ):" /></strong>
+
+					<br />
+					<br />
+
+					<h:inputText id="login" value="#{registroMBean.login}"
+						class="campos_login" size="40" />
+					<br />
+					<br />
+
+					<strong><h:outputLabel for="senha" value="Senha:" /></strong>
+					<br />
+					<br />
+
+					<h:inputSecret id="senha" value="#{registroMBean.senha}"
+						class="campos_login" size="40" />
+					<br />
+					<br />
+
+					<strong><h:outputLabel for="confirmacaoSenha" value="Confirmar Senha:" /></strong>
+					<br />
+					<br />
+
+					<h:inputSecret id="confirmacaoSenha" value="#{registroMBean.confirmacaoSenha}"
+						class="campos_login" size="40" />
+					<br />
+					<br />
+
+					<div class="camposLogin">
+						<h:commandButton class="buttonplus white"
+							action="#{registroMBean.registrar}" value="REGISTRAR-SE" />
+						<h:commandButton class="buttonplus white"
+							action="#{loginMBean.paginaLogin}" value="LOGIN" />
+					</div>
+				</h:form>
+			</div>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
+

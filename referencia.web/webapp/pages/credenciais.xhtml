@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<title>GPQ - Gerência de Metodologia, Processos e Qualidade</title>
+
+</h:head>
+<h:body>
+
+	<ui:composition template="/public/template.xhtml">
+
+		<ui:define name="content">
+
+
+			<div class="content">
+				<h:form id="credenciais">
+
+					<h:outputText value="#{credencialMBean.feedback}"
+						styleClass="#{credencialMBean.tipoFeedback}" id="feedback" />
+
+					<h:outputText value="#{credencialMBean.titulo}"
+						class="titulo_projeto" />
+
+					<table style="margin-top: 60px;">
+						<tr>
+							<td><h:outputText value="Login:" /></td>
+							<td><h:outputText value="#{credencialMBean.usuario.login}" /></td>
+						</tr>
+						<tr>
+							<td><h:outputText value="* Nome:" /></td>
+							<td><p:inputText value="#{credencialMBean.usuario.nome}" /></td>
+						</tr>
+						<tr>
+							<td><h:outputText value="* Senha atual:" /></td>
+							<td><p:password value="#{credencialMBean.usuario.senha}" /></td>
+						</tr>
+						<tr>
+							<td><h:outputText value="* Nova senha:" /></td>
+							<td><p:password value="#{credencialMBean.usuario.novaSenha}" /></td>
+						</tr>
+						<tr>
+							<td><h:outputText value="* Confirmar senha:" /></td>
+							<td><p:password value="#{credencialMBean.usuario.confirmacaoSenha}" /></td>
+						</tr>
+					</table>
+
+					<br />
+					<br />
+	  				
+	  				<p:focus context="credenciais" />
+
+					<p:commandButton value="Salvar" id="salvar"
+						actionListener="#{credencialMBean.salvar}"
+						update=":credenciais:feedback, :credenciais"
+						styleClass="buttonplus white" />
+
+					<p:commandButton value="Limpar" id="reset"
+						actionListener="#{credencialMBean.reset}" update=":credenciais"
+						styleClass="buttonplus white" />
+				</h:form>
+			</div>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
+

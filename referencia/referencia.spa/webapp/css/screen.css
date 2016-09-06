@@ -1,0 +1,208 @@
+/*
+* Bootstrap v2.0.3
+*
+* Copyright 2012 Twitter, Inc
+* Licensed under the Apache License v2.0
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Designed and built with all the love in the world @twitter by @mdo and @fat.
+*/
+
+.clear {
+	clear:both;
+	line-height:0;
+	font-size:0;
+}
+
+/* ============ TIMELINE ============= */
+
+div#timelineContainer {
+	border-left:2px solid #ccc;
+	margin:20px auto;
+	width:716px; /* largura do timeline */
+}
+
+div.timelineToggle {
+	float:right;
+	margin-right:0;
+	white-space:nowrap;
+}
+
+/* botão mostrar todos */
+a.expandAll {
+	color:#FFF!important;
+	cursor:pointer;
+	background:#000;
+	border:none;
+	-webkit-border-radius:4px;
+	-moz-border-radius:4px;
+	border-radius:4px;
+	font-size:12px;
+	padding:3px 5px;
+}
+
+a.expandAll:hover {
+	border:none!important;
+	color:#7DBADF!important;
+	cursor:pointer;
+}
+
+div.timelineMajor {
+	clear:left;
+	float:left;
+	margin:0 0 12px;
+	width:716px; /* tamanho de cada item no timeline */
+}
+
+	.timelineMajor h2 {
+		background:url(#{resource['images:timeline_century_tick.gif']}) left center no-repeat;
+		cursor: pointer;
+		font-size:12px!important;
+		font-weight:bold!important;
+		margin:0!important;
+		padding:2px 4px 2px 20px!important;
+	}
+
+	.timelineMajor h2 span {
+		background:#ccc;
+		border:none;
+		-webkit-border-radius:4px;
+		-moz-border-radius:4px;
+		border-radius:4px;
+		color:#131313;
+		padding:3px 5px 1px;
+	}
+
+	.timelineMajor h2 a:hover {
+		border-bottom:none;
+		color:#00baff!important;
+	}
+
+dl.timelineMinor {
+	clear:left;
+	float:left!important;
+	margin:0 12px 0 0!important;
+	padding:3px 2px 2px 0!important;
+	position:relative;
+	width:716px;
+}
+
+	/* Nome */
+	.timelineMinor dt {
+		background:url(#{resource['images:timeline_decade_tick.gif']}) left center no-repeat;
+		clear:left;
+		font-size:1.2em!important;
+		font-weight: bold;
+		list-style-type:none!important;
+		line-height:1.2em;
+		margin:0!important;
+		padding:0 0 0 24px!important;
+		white-space:nowrap;
+	}
+
+		.timelineMinor dt a {
+			color:#999;
+			cursor:pointer;
+		}
+
+		.timelineMinor dt a.closed {
+			color:#999;
+			font-size:1em;
+			margin-left:0;
+		}
+
+		.timelineMinor dt a.open {
+			color:#7DBADF;
+		}
+
+		.timelineMinor dt a:hover {
+			color:#7DBADF;
+		}
+
+	.timelineMinor dd {
+		width:670px;
+	}
+
+		.timelineMinor dd h3 {
+			clear:both;
+			float:left;
+			font-size:1.2em!important;
+			margin:0;
+			white-space:nowrap;
+		}
+
+.timelineEvent{
+	margin-left:45px;
+}
+.timelineEvent p {
+	clear:left;
+	float:left;
+	line-height:1.5em!important;
+	width:456px;
+}
+
+.timelineEvent h4 {
+	clear:left;
+	float:left;
+	font-size:1.4em!important;
+	font-weight:400;
+	margin:10px 0 0;
+	padding:0 0 0 20px!important;
+}
+
+.timelineEvent ul.moreInfo {
+	clear:left;
+	float:left;
+	line-height:1.2em;
+	list-style-type:none;
+	margin:0!important;
+	padding:0!important;
+	width:100%;
+}
+
+.timelineEvent ul.moreInfo li {
+	clear:left;
+	background:none!important;
+	font-size:1em!important;
+	line-height:1.5em;
+	margin:8px 0!important;
+	padding:0 0 0 20px!important;
+}
+
+	.timelineEvent ul.moreInfo li a:link,.timelineEvent ul.moreInfo li a:visited {
+		color:#7097af!important;
+	}
+
+	.timelineEvent ul.moreInfo li a:hover {
+		color:#7DBADF!important;
+	}
+
+.timelineEvent div.media {
+	float:right;
+	text-align: right;
+	width:210px;
+}
+
+	.timelineEvent .media img {
+		border:1px solid #333;
+		margin:0;
+	}
+
+	.timelineEvent .media p {
+		font-size:1.2em;
+		margin:0!important;
+		padding:0!important;
+	}
+
+	.timelineEvent .media a:link,.timelineEvent .media a:visited {
+		border:none!important;
+		color:#ab221b!important;
+	}
+
+	.timelineEvent .media a:hover {
+		color:#7DBADF!important;
+	}
+
+	.timelineEvent .media p span.source {
+		font-style:italic;
+	}

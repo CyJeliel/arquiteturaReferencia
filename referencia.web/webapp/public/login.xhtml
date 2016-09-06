@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="classification" content="Governo" />
+	<meta name="author" content="Prodesp" />
+	<meta name="description" content="Infosys" />
+
+	<title>Login - Aplicação de Referência - GPQ</title>
+
+</h:head>
+<h:body styleClass="login">
+
+	<ui:composition template="/public/template.xhtml">
+
+		<ui:define name="menu" />
+
+		<ui:define name="content">
+
+			<div class="box_login">
+
+				<div class="erro">
+
+					<h:outputText value="#{loginMBean.feedback}"
+						styleClass="#{loginMBean.tipoFeedback}" id="feedback" />
+				</div>
+
+				<h:form id="login" styleClass="formLogin">
+	  				
+	  				<p:focus context="login" />
+
+					<p>
+						<h:outputLabel for="usuario" value="Usuário" />
+						<h:inputText id="usuario" value="#{loginMBean.login}"
+							placeholder="6 dígitos" />
+					</p>
+
+
+					<p>
+						<h:outputLabel for="senha" value="Senha" />
+						<h:inputSecret id="senha" value="#{loginMBean.senha}"
+							placeholder="**********" autocomplete="off"/>
+					</p>
+
+					<h:commandButton class="btn white" action="#{loginMBean.loginUser}"
+						value="Entrar" />
+
+					<p>
+						<h:commandLink action="#{registroMBean.pagRegistrar}"
+							value="Registre-se" />
+						se não possuir uma conta.
+					</p>
+				</h:form>
+			</div>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
+

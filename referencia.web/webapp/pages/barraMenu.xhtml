@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<body>
+	<ui:composition>
+
+		<h:form>
+			<div class="barra_menu">
+
+				<ui:insert name="menu">
+					<ui:include src="#{loginMBean.menu}" />
+				</ui:insert>
+				<h:commandLink action="#{loginMBean.logout}" value="SAIR"
+					class="sair" />
+				
+				
+				<h:outputText class="data" value="#{currentDate}">
+    				<f:convertDateTime pattern="dd/MM/yyyy HH:mm" type="both" locale="pt" timeZone="GMT-3"/>
+				</h:outputText>
+					
+					
+				<span class="usuario"> <strong>Olá,</strong>
+					#{loginMBean.login}
+				</span>
+			</div>
+		</h:form>
+	</ui:composition>
+</body>
+</html>

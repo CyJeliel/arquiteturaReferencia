@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<title>GPQ - Gerência de Metodologia, Processos e Qualidade</title>
+
+</h:head>
+<h:body>
+
+	<ui:composition template="/public/template.xhtml">
+
+		<ui:define name="content">
+
+
+			<div class="content">
+				<h:form id="clientes"
+					onkeydown="if(event.keyCode == 13){event.preventDefault();return false;}">
+
+					<h:outputText value="Cliente:  " />
+
+					<p:autoComplete id="autoCompleteClientes"
+						value="#{clienteMBean.nomeClienteSelecionado}"
+						completeMethod="#{clienteMBean.autoCompleteClientes}"
+						var="cliente" itemLabel="#{cliente}" itemValue="#{cliente}"
+						forceSelection="true" styleClass="autoComplete"
+						placeholder="Digite o nome do cliente" dropdown="true">
+						<p:column>
+							<h:outputText value="#{cliente}" />
+						</p:column>
+						<p:ajax event="itemSelect"
+							listener="#{clienteMBean.onSelecionaCliente}"
+							update=":clientes:detalhes, autoCompleteClientes, lista" />
+
+					</p:autoComplete>
+
+					<p:commandButton value="Novo Cliente" id="novoCliente"
+						actionListener="#{clienteMBean.formNovoCliente}"
+						update=":clientes:detalhes, :clientes:autoCompleteClientes, lista"
+						styleClass="botaoNovoItem buttonplus white" />
+
+					<br />
+					<br />
+					<br />
+					<br />
+
+					<p:dataTable styleClass="table table-striped" sortMode="multiple"
+						value="#{clienteMBean.clientes}" selectionMode="single"
+						var="cliente" rowKey="#{cliente.nome}"
+						emptyMessage="Não há clientes cadastrados." cellspacing="0"
+						cellpadding="0" id="lista"
+						selection="#{clienteMBean.clienteSelecionado}">
+						<p:ajax event="rowSelect" listener="#{clienteMBean.onRowSelect}"
+							update=":clientes:detalhes, :clientes:autoCompleteClientes" />
+						<p:column headerText="Cliente" sortBy="#{cliente.nome}">
+							<h:outputText class="linkTabela" value="#{cliente.nome}" />
+						</p:column>
+						<p:column headerText="">
+							<p:commandLink value="Excluir"
+								actionListener="#{clienteMBean.excluir(cliente)}"
+								update=":clientes:feedback, :clientes:detalhes, :clientes:lista, :clientes:autoCompleteClientes">
+								<p:confirm header="Confirmação"
+									message="Tem certeza de que deseja excluir esse cliente?"
+									icon="ui-icon-alert" />
+							</p:commandLink>
+						</p:column>
+					</p:dataTable>
+
+					<h:panelGroup id="detalhes"
+						style="display:#{clienteMBean.exibeDetalhes}?'none':'block'}; float: left; margin-top: 10px;">
+
+						<h:outputText value="#{clienteMBean.feedback}"
+							styleClass="#{clienteMBean.tipoFeedback}" id="feedback" />
+
+						<h:outputText value="#{enderecoMBean.feedback}" id="feedbackCEP" styleClass="erro"></h:outputText>
+
+
+						<h:outputText value="#{clienteMBean.titulo}"
+							rendered="#{clienteMBean.exibeDetalhes}" class="titulo_projeto" />
+
+						<br />
+						<h:outputText value="Campos Obrigatórios (*)"
+							rendered="#{clienteMBean.exibeDetalhes}" />
+
+						<h:panelGrid id="detalhesDoCliente" columns="2"
+							style="margin-top: 10px;">
+							
+							<h:outputLabel for="nome" value="* Nome:"
+								rendered="#{clienteMBean.exibeDetalhes}" />
+							<h:inputText id="nome" value="#{clienteMBean.nome}"
+								styleClass="formCliente"
+								rendered="#{clienteMBean.exibeDetalhes}" />
+							
+							<h:outputLabel for="cep" value="* CEP:"
+								rendered="#{clienteMBean.exibeDetalhes}" />
+							<p:inputMask mask="99999-999" id="cep" styleClass="formCliente"
+								value="#{enderecoMBean.cepDigitado}"
+								rendered="#{clienteMBean.exibeDetalhes}"
+								onkeypress="if(event.keyCode===13){$('#numero').focus();return false;}">
+								<p:ajax event="blur" listener="#{enderecoMBean.onInformaCEP}"
+									update="endereco, numero, complemento, bairro, cidade, estado, uf, feedbackCEP"></p:ajax>
+							</p:inputMask>
+							
+							<h:outputLabel for="endereco" value="* Endereço:"
+								rendered="#{clienteMBean.exibeDetalhes}" />
+							<p:inputText maxlength="100"
+								disabled="#{enderecoMBean.endereco.descricaoBloqueada}"
+								id="endereco" styleClass="formCliente"
+								value="#{enderecoMBean.descricao}"
+								rendered="#{clienteMBean.exibeDetalhes}" />
+							
+							<h:outputLabel for="numero" value="* Número:"
+								rendered="#{clienteMBean.exibeDetalhes}" />
+							<h:inputText id="numero" maxlength="100" styleClass="formCliente"
+								disabled="#{enderecoMBean.endereco.numeroBloqueado}"
+								mask="99999999" value="#{enderecoMBean.numero}"
+								rendered="#{clienteMBean.exibeDetalhes}" />
+							
+							<h:outputLabel for="complemento" value="Complemento:"
+								rendered="#{clienteMBean.exibeDetalhes}" />
+							<h:inputText maxlength="100" styleClass="formCliente"
+								id="complemento" value="#{enderecoMBean.complemento}"
+								disabled="#{enderecoMBean.endereco.complementoBloqueado}"
+								rendered="#{clienteMBean.exibeDetalhes}" />
+							
+							<h:outputLabel for="bairro" value="* Bairro:"
+								rendered="#{clienteMBean.exibeDetalhes}" />
+							<p:inputText styleClass="formCliente"
+								disabled="#{enderecoMBean.endereco.bairroBloqueado}" id="bairro"
+								value="#{enderecoMBean.bairro}"
+								rendered="#{clienteMBean.exibeDetalhes}" />
+							
+							<h:outputLabel for="cidade" value="* Cidade:"
+								rendered="#{clienteMBean.exibeDetalhes}" />
+							<p:inputText styleClass="formCliente" disabled="true" id="cidade"
+								value="#{enderecoMBean.cidade}"
+								rendered="#{clienteMBean.exibeDetalhes}" />
+							
+							<h:outputLabel for="estado" value="* Estado:"
+								rendered="#{clienteMBean.exibeDetalhes}" />
+							<p:inputText styleClass="formCliente" disabled="true" id="estado"
+								value="#{enderecoMBean.estado}"
+								rendered="#{clienteMBean.exibeDetalhes}" />
+							
+							<h:outputLabel for="uf" value="* Sigla do Estado:"
+								rendered="#{clienteMBean.exibeDetalhes}" />
+							<p:inputText styleClass="formCliente" disabled="true" id="uf"
+								value="#{enderecoMBean.uf}"
+								rendered="#{clienteMBean.exibeDetalhes}" />
+							
+							<h:outputLabel for="telefone" value="* Telefone:"
+								rendered="#{clienteMBean.exibeDetalhes}" />
+							<p:inputMask mask="(99)9999-9999?9" id="telefone"
+								rendered="#{clienteMBean.exibeDetalhes}"
+								value="#{clienteMBean.telefone}" styleClass="formCliente" />
+							
+							<h:outputLabel for="email" value="* Email:"
+								rendered="#{clienteMBean.exibeDetalhes}" />
+							<p:inputText maxlength="100" styleClass="formCliente" id="email"
+								value="#{clienteMBean.email}" validatorMessage="Email inválido"
+								rendered="#{clienteMBean.exibeDetalhes}"
+								onkeydown="if(event.keyCode===9){return false;}">
+								<f:validateRegex
+									pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+							</p:inputText>
+							
+							<p:focus context="detalhesDoCliente" />
+						</h:panelGrid>
+
+						<br />
+						<br />
+
+						<p:commandButton value="Salvar" id="salvar"
+							actionListener="#{clienteMBean.salvar}"
+							rendered="#{clienteMBean.exibeDetalhes}"
+							update=":clientes:feedback, :clientes:feedbackCEP, :clientes:detalhes, :clientes:lista, :clientes:autoCompleteClientes"
+							styleClass="buttonplus white" />
+
+						<p:commandButton value="Cancelar" id="reset" immediate="true"
+							actionListener="#{clienteMBean.reset}"
+							rendered="#{clienteMBean.exibeDetalhes}"
+							update=":clientes:feedback, :clientes:feedbackCEP, :clientes:detalhes, :clientes:autoCompleteClientes"
+							styleClass="buttonplus white" />
+
+						<p:commandButton value="Excluir" id="excluir"
+							actionListener="#{clienteMBean.excluir}"
+							rendered="#{clienteMBean.exibeBotaoExcluir}"
+							update=":clientes:feedback, :clientes:feedbackCEP, :clientes:detalhes, :clientes:lista, :clientes:autoCompleteClientes"
+							styleClass="buttonplus white">
+
+							<p:confirm header="Confirmação"
+								message="Tem certeza de que deseja excluir esse cliente?"
+								icon="ui-icon-alert" />
+
+						</p:commandButton>
+
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+							<p:commandButton value="Sim" type="button"
+								styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+							<p:commandButton value="Não" type="button"
+								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</p:confirmDialog>
+					</h:panelGroup>
+				</h:form>
+			</div>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
+

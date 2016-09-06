@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<title>GPQ - Gerência de Metodologia, Processos e Qualidade</title>
+
+</h:head>
+<h:body>
+
+	<ui:composition template="/public/template.xhtml">
+
+		<ui:define name="content">
+
+			<div class="content">
+
+				<h:form>
+					<h1>GPQ - Gerência de Metodologia, Processos e Qualidade</h1>
+
+					<h2>Aplicação de Referência para projetos Java - JSF com
+						Hibernate</h2>
+						
+						
+
+					<h2>Guia do Desenvolvedor</h2>
+
+					<br />
+					<br />
+
+					<h:outputLink value="/referencia/resources/files/Guia_Desenvolvedor_PRODESP.pdf">Baixe aqui o Guia do Desenvolvedor Prodesp!</h:outputLink>
+					
+					<br />
+					<br />
+					
+					<h:outputLink value="http://10.200.142.177/CatalogoServicos/">Ou acesse a última versão online</h:outputLink>
+
+					<br />
+					<br />
+
+
+					<p>Detalhes da Arquitetura proposta para projetos de média
+						complexibilidade:</p>
+
+					<br />
+
+					<p>01 Presentation Layer ( Camada de Apresentação
+						- JSF)</p>
+
+					<br />
+
+					<p>02 Common Crosscutting Layer ( Classes POJO )</p>
+
+					<br />
+
+					<p>03 Business Layer (Logic) ( Camada de Negócio )</p>
+
+					<br />
+
+					<p>04 Data Access Layer ( Camada de Persistência -
+						Hibernate)</p>
+
+					<br />
+					<br />
+					<h:commandLink action="#{referenciaMBean.callPagDetalheProjeto}">Detalhe Projeto no Eclipse</h:commandLink>
+				</h:form>
+			</div>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
+

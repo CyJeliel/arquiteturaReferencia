@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:composition>
+
+		<h:outputScript library="primefaces" name="jquery/jquery.js" />
+
+		<a href="#" id="btn_menu" class="icone_menu">Menu</a>
+
+		<!-- Menu -->
+		<ul class="menu">
+			<li style="list-style-type: none;"><a href="#"
+				class="icone_menu icone_menu_inverse">Menu</a></li>
+			<li style="list-style-type: none;">
+				<h:commandLink	class="linkMenu" action="#{referenciaMBean.callPagHome}" value="Home"/>
+			</li>
+			<li style="list-style-type: none;">
+				<h:commandLink	class="linkMenu" action="#{referenciaMBean.callPagCredenciais}" value="Credenciais"/>
+			</li>
+			<li style="list-style-type: none;">
+				<h:commandLink	class="linkMenu" action="#{referenciaMBean.callPagProdutos}" value="Produtos"/>
+			</li>
+			<li style="list-style-type: none;">
+				<h:commandLink class="linkMenu" action="#{referenciaMBean.callPagCategorias}"	value="Categorias"/>
+			</li>
+			<li style="list-style-type: none;">
+				<h:commandLink	class="linkMenu" action="#{referenciaMBean.callPagClientes}" value="Clientes"/>
+			</li>
+			<li style="list-style-type: none;">
+				<h:commandLink	class="linkMenu" action="#{referenciaMBean.callPagContato}" value="Contato"/>
+			</li>
+			<li style="list-style-type: none;">
+				<h:commandLink	class="linkMenu" action="#{referenciaMBean.callPagSobre}" value="Sobre"/>
+			</li>
+		</ul>
+
+		<script>
+			// exibe menu
+			$("#btn_menu").click(function() {
+				$(".menu").slideDown();
+			});
+
+			// esconde menu
+			$(".icone_menu_inverse").click(function() {
+				$(".menu").slideUp();
+			});
+		</script>
+
+	</ui:composition>
+</h:body>
+</html>

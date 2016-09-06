@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence                                 http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+    <persistence-unit name="br.gov.sp.prodesp.namb" transaction-type="JTA">
+         
+         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+         
+         <jta-data-source>java:/jdbc/prodespReferencia</jta-data-source>
+        
+        <class>referencia.repository.mapper.implementations.entities.Category</class>
+        <class>referencia.repository.mapper.implementations.entities.Product</class>
+        <class>referencia.repository.mapper.implementations.entities.User</class>
+        <class>referencia.repository.mapper.implementations.entities.Client</class>
+        
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        
+        <properties>
+            <property name="hibernate.default_schema" value="dbo"/>
+            <property name="hibernate.hbm2ddl.auto" value="validate" />                        
+            <property name="hibernate.show_sql" value="false" />           
+            <property name="hibernate.format_sql" value="true" />                                   
+            <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServer2012Dialect" />
+            
+            
+			<property name="hibernate.default_catalog" value="dbReferencia_MVC" />
+			<property name="hibernate.id.new_generator_mappings" value="false" />
+            
+            
+        </properties>
+    </persistence-unit>
+</persistence>

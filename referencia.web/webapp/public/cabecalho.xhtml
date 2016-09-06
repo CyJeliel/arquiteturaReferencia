@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<body>
+	<ui:composition>
+	
+		<!-- Cabeçalho -->
+		<div id="header">
+			
+			<h:form>
+				<h:commandLink action="#{referenciaMBean.callPagHome}">
+					<h:graphicImage styleClass="logo">Infosys</h:graphicImage>
+				
+				</h:commandLink>
+			</h:form>
+			
+			<a href="http://www.prodesp.sp.gov.br/" class="prodesp" target="_blank">Prodesp	- Tecnologia da Informação</a> 
+			
+			<a href="http://www.prodesp.sp.gov.br/" class="logo_prodesp" target="_blank">Prodesp	- Tecnologia da Informação</a> 
+			
+			<span class="revisao"> 
+				Última revisão:<br /> 
+				segunda-feira, 13 de Junho de 2016
+			</span>
+		
+		</div>
+		<!-- fim id header-->
+		
+	</ui:composition>
+</body>
+</html>
